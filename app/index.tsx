@@ -6,8 +6,15 @@ interface Pokemon{
   name: string;
   image: string;
   imageBack: string;
+  types: PokemonType[];
 }
 
+interface PokemonType{
+  type: {
+    name: string;
+    url: string; 
+  }
+}
 export default function Index() {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   useEffect(() => {
@@ -31,6 +38,7 @@ export default function Index() {
             name: pokemon.name,
             image: details.sprites.front_default,
             imageBack: details.sprites.back_default,
+            types: details.types,
           }
         })
       )
@@ -46,7 +54,7 @@ export default function Index() {
       {pokemons.map((pokemon) => (
         <View key = {pokemon.name}>
           <Text>{pokemon.name}</Text>
-
+          <Text>{pokemon.types[0].type.name}</Text>
           <View
             style = {{ 
               flexDirection: 'row', justifyContent: 'space-between', width: 400
